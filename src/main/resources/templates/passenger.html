@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+          font-family: 'Times New Roman', serif;
+          background: linear-gradient(to left, #00f, #80dfff);
+          color: white;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+        }
+        .header {
+          width: 100%;
+          background-color: rgba(25, 25,25,0.1);
+          color: white;
+          text-align: center;
+          padding: 20px 0;
+        }
+        .container {
+          max-width: 800px;
+          margin: 50px auto;
+          padding: 20px;
+          background-color: rgba(255, 255, 255, 0.9);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          color: black;
+          position: relative;
+          text-align: left;
+
+        }
+        h2 {
+          color: #007bf;
+        }
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: left;
+          margin-bottom: 20px;
+        }
+        label {
+          margin-bottom: 5px;
+          color: #007bf;
+        }
+        input[type="text"],
+        input[type="date"],
+        button {
+          width: 300px;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          background-color: #fff;
+          color: #333;
+          transition: all 0.3s;
+        }
+        input[type="text"]:hover,
+        input[type="date"]:hover {
+          border-color: #000;
+        }
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+          outline: none;
+          border-color: #007bff;
+          box-shadow: 0 0 5px #007bff;
+        }
+        button {
+          border: none;
+          border-radius: 5px;
+          background: linear-gradient(135deg, #007bff, #0056b3);
+          color: #fff;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        button:hover {
+          background: linear-gradient(135deg, #0056b3, #003d7a);
+        }
+
+        .view-bookings{
+            position:absolute;
+            left:1280px;
+            top:50px;
+
+        }
+
+        .logout {
+          position: absolute;
+          top: 50px;
+          right: 20px;
+        }
+        .logout a, .view-bookings a {
+          padding: 10px;
+          border-radius: 5px;
+          background: black;
+          color: #fff;
+          text-decoration: none;
+          transition: all 0.3s;
+        }
+        .logout a:hover, .view-bookings a:hover {
+          background: linear-gradient(135deg, #0056b3, #003d7a);
+        }
+        .view-bookings {
+          margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Welcome to Capstone Travels</h1>
+</div>
+<div class="logout" sec:authorize="isAuthenticated">
+    <a th:href="@{/logout}">Logout</a>
+</div>
+<div class="view-bookings">
+    <a href="/bookings">View Bookings</a>
+</div>
+<div class="container">
+    <h2>Welcome, <span th:text="${passenger.fullName}"></span></h2>
+    <form action="/passengerHome" method="get">
+        <label for="from">From</label>
+        <input type="text" id="from" name="from" required>
+        <label for="to">To</label>
+        <input type="text" id="to" name="to" required>
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+        <br>
+        <button type="submit">Search Bus</button>
+    </form>
+</div>
+</body>
+</html>
